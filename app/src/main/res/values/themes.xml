@@ -2,4 +2,12 @@
 <resources>
 
     <style name="Theme.Compose_Architecture" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.SplashScreen" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:windowSplashScreenBackground">@color/teal_200</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/android_logo</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/purple_200</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/ic_android_black_24dp</item>
+    </style>
 </resources>

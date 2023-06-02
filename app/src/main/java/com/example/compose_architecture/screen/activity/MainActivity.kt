@@ -1,4 +1,4 @@
-package com.example.compose_architecture
+package com.example.compose_architecture.screen.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
