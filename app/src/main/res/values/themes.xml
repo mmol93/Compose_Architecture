@@ -2,4 +2,17 @@
 <resources>
 
     <style name="Theme.Compose_Architecture" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.SplashScreen" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/black</item>
+        <!-- 스플래시 배경 -->
+        <item name="android:windowSplashScreenBackground">@color/teal_200</item>
+        <!-- 스플래시에서 보여줄 아이콘 (가운데) -->
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/android_logo</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/purple_200</item>
+        <!-- 스플래시에서 보여줄 아이콘 (아래) -->
+        <item name="android:windowSplashScreenBrandingImage">@drawable/ic_android_black_24dp</item>
+        <!-- 스플래시가 끝난 후 적용할 테마 -->
+        <item name="postSplashScreenTheme">@style/Theme.Compose_Architecture</item>
+    </style>
 </resources>
