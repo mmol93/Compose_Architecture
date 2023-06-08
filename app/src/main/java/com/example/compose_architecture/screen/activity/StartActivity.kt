@@ -4,32 +4,56 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import coil.compose.AsyncImage
 import com.example.compose_architecture.screen.UiState
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 import com.example.compose_architecture.viewModel.StartActivityViewModel
+import com.google.accompanist.pager.HorizontalPagerIndicator
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class StartActivity : ComponentActivity() {
-
-    val viewModel: StartActivityViewModel by viewModels()
+    private val viewModel: StartActivityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
         var uiState: UiState by mutableStateOf(UiState.Loading)
+
+        val onBoardingTitleList = listOf("Welcome", "Compose Architecture", "Start Now")
+        val onBoardingImages =
+            listOf(
+                "https://play-lh.googleusercontent.com/KwUBNPbMTk9jDXYS2AeX3illtVRTkrKVh5xR1Mg4WHd0CG2tV4mrh1z3kXi5z_warlk",
+                "https://store-images.microsoft.com/image/apps.21169.9007199266244427.cc23e1b0-9845-4273-918c-f8dbdb058401.ebc29770-cc7b-4af1-89cc-2085c1498f24",
+                "https://www.apple.com/ac/structured-data/images/open_graph_logo.png?201812022340"
+            )
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -52,22 +76,57 @@ class StartActivity : ComponentActivity() {
             // Turn off the decor fitting system windows, which allows us to handle insets,
             // including IME animations
             WindowCompat.setDecorFitsSystemWindows(window, false)
+
+            Compose_ArchitectureTheme() {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Column(
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        ShowOnBoarding(
+                            titles = onBoardingTitleList,
+                            images = onBoardingImages
+                        )
+                    }
+                }
+            }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun Greeting2(name: String, modifier: Modifier = Modifier) {
+fun ShowOnBoarding(titles: List<String>, images: List<String>) {
+    val pagerState = rememberPagerState()
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        modifier = Modifier.padding(bottom = 32.dp),
+        style = TextStyle(fontSize = 32.sp),
+        text = "OnBoarding Test"
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview2() {
-    Compose_ArchitectureTheme {
-        Greeting2("Android")
+    // ViewPager (Experimental)
+    HorizontalPager(pageCount = titles.size, state = pagerState) {
+        AsyncImage(
+            model = images[it],
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp)
+        )
     }
+    Text(
+        modifier = Modifier.padding(vertical = 12.dp),
+        style = TextStyle(fontSize = 20.sp),
+        text = titles[pagerState.currentPage]
+    )
+    // ViewPager Indicator (Experimental)
+    HorizontalPagerIndicator(
+        modifier = Modifier
+            .padding(bottom = 10.dp),
+        pageCount = titles.size,
+        pagerState = pagerState,
+    )
 }

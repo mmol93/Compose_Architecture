@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,8 +14,7 @@
         <activity
             android:name=".screen.activity.StartActivity"
             android:exported="true"
-            android:label="@string/title_activity_splash"
-            android:theme="@style/Theme.SplashScreen">
+            android:theme="@style/Theme.StartScreen">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
