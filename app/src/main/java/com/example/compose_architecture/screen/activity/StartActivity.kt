@@ -1,5 +1,8 @@
 package com.example.compose_architecture.screen.activity
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,12 +10,14 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -31,7 +36,13 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.compose_architecture.navigation.Screens
 import com.example.compose_architecture.screen.UiState
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 import com.example.compose_architecture.viewModel.StartActivityViewModel
@@ -57,10 +68,7 @@ class StartActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState
-                    .onEach {
-                        uiState = it
-                    }.collect()
+                viewModel.uiState.onEach { uiState = it }.collect()
             }
         }
 
@@ -82,51 +90,104 @@ class StartActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        ShowOnBoarding(
-                            titles = onBoardingTitleList,
-                            images = onBoardingImages
-                        )
-                    }
+                    SetScreen(
+                        context = this,
+                        titles = onBoardingTitleList,
+                        images = onBoardingImages
+                    )
                 }
             }
         }
     }
 }
 
+@Composable
+fun SetScreen(context: Context, titles: List<String>, images: List<String>) {
+    val navController = rememberNavController()
+    val backStackEntry = navController.currentBackStackEntryAsState()
+    val currentScreen = Screens.fromRoute(backStackEntry.value?.destination?.route)
+
+    NavHost(navController = navController, startDestination = Screens.Start.name) {
+        composable(Screens.Start.name) {
+            ShowOnBoarding(
+                context = context,
+                titles = titles,
+                images = images,
+                navController = navController
+            )
+        }
+
+        composable(Screens.Main.name) {
+            Main()
+        }
+    }
+}
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ShowOnBoarding(titles: List<String>, images: List<String>) {
+fun ShowOnBoarding(
+    context: Context,
+    titles: List<String>,
+    images: List<String>,
+    navController: NavController
+) {
     val pagerState = rememberPagerState()
-    Text(
-        modifier = Modifier.padding(bottom = 32.dp),
-        style = TextStyle(fontSize = 32.sp),
-        text = "OnBoarding Test"
-    )
-    // ViewPager (Experimental)
-    HorizontalPager(pageCount = titles.size, state = pagerState) {
-        AsyncImage(
-            model = images[it],
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp)
-        )
-    }
-    Text(
-        modifier = Modifier.padding(vertical = 12.dp),
-        style = TextStyle(fontSize = 20.sp),
-        text = titles[pagerState.currentPage]
-    )
-    // ViewPager Indicator (Experimental)
-    HorizontalPagerIndicator(
+
+    Column(
         modifier = Modifier
-            .padding(bottom = 10.dp),
-        pageCount = titles.size,
-        pagerState = pagerState,
-    )
+            .fillMaxHeight()
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            modifier = Modifier.padding(bottom = 32.dp),
+            style = TextStyle(fontSize = 32.sp),
+            text = "OnBoarding Test"
+        )
+        // ViewPager (Experimental)
+        HorizontalPager(pageCount = titles.size, state = pagerState) {
+            AsyncImage(
+                model = images[it],
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+            )
+        }
+        Text(
+            modifier = Modifier.padding(vertical = 12.dp),
+            style = TextStyle(fontSize = 20.sp),
+            text = titles[pagerState.currentPage]
+        )
+        // ViewPager Indicator (Experimental)
+        HorizontalPagerIndicator(
+            modifier = Modifier
+                .padding(bottom = 10.dp),
+            pageCount = titles.size,
+            pagerState = pagerState,
+        )
+        if (pagerState.currentPage == titles.size - 1) {
+            Button(modifier = Modifier.padding(12.dp), onClick = {
+                context.startActivity(Intent(context, MainActivity::class.java))
+                (context as Activity).finish()
+            }) {
+                Text(text = "Next Page")
+            }
+        }
+    }
+}
+
+@Composable
+fun Main() {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = "asdfsa")
+    }
 }
