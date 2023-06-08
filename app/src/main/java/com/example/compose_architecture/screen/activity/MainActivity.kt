@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.compose_architecture.navigation.MainScreens
+import com.example.compose_architecture.model.screen.MainScreens
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 
 class MainActivity : ComponentActivity() {

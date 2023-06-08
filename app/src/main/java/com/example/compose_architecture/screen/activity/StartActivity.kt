@@ -42,7 +42,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.example.compose_architecture.navigation.Screens
+import com.example.compose_architecture.model.screen.StartScreens
 import com.example.compose_architecture.screen.UiState
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 import com.example.compose_architecture.viewModel.StartActivityViewModel
@@ -105,10 +105,10 @@ class StartActivity : ComponentActivity() {
 fun SetScreen(context: Context, titles: List<String>, images: List<String>) {
     val navController = rememberNavController()
     val backStackEntry = navController.currentBackStackEntryAsState()
-    val currentScreen = Screens.fromRoute(backStackEntry.value?.destination?.route)
+    val currentScreen = StartScreens.fromRoute(backStackEntry.value?.destination?.route)
 
-    NavHost(navController = navController, startDestination = Screens.Start.name) {
-        composable(Screens.Start.name) {
+    NavHost(navController = navController, startDestination = StartScreens.Start.name) {
+        composable(StartScreens.Start.name) {
             ShowOnBoarding(
                 context = context,
                 titles = titles,
@@ -117,7 +117,7 @@ fun SetScreen(context: Context, titles: List<String>, images: List<String>) {
             )
         }
 
-        composable(Screens.Main.name) {
+        composable(StartScreens.Main.name) {
             Main()
         }
     }
