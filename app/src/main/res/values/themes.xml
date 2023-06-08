@@ -3,8 +3,8 @@
 
     <style name="Theme.Compose_Architecture" parent="android:Theme.Material.Light.NoActionBar" />
 
-    <style name="Theme.SplashScreen" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/black</item>
+    <style name="Theme.StartScreen" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
         <!-- 스플래시 배경 -->
         <item name="android:windowSplashScreenBackground">@color/teal_200</item>
         <!-- 스플래시에서 보여줄 아이콘 (가운데) -->
