@@ -14,3 +14,9 @@ enum class Screens {
             }
     }
 }
+
+enum class MainScreens {
+    View,
+    Functions,
+    Examples,
+}
