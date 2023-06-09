@@ -84,16 +84,18 @@ class StartActivity : ComponentActivity() {
             // Turn off the decor fitting system windows, which allows us to handle insets,
             // including IME animations
             WindowCompat.setDecorFitsSystemWindows(window, false)
+            val navController = rememberNavController()
 
             Compose_ArchitectureTheme() {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SetScreen(
+                    ShowOnBoarding(
                         context = this,
                         titles = onBoardingTitleList,
-                        images = onBoardingImages
+                        images = onBoardingImages,
+                        navController = navController
                     )
                 }
             }
@@ -125,7 +127,7 @@ fun SetScreen(context: Context, titles: List<String>, images: List<String>) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ShowOnBoarding(
+private fun ShowOnBoarding(
     context: Context,
     titles: List<String>,
     images: List<String>,

@@ -18,5 +18,6 @@ enum class StartScreens {
 enum class MainScreens {
     View,
     Functions,
+    Animations,
     Examples,
 }
