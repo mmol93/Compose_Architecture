@@ -69,6 +69,9 @@ fun SetMainScreenWithNavigation(navHostController: NavHostController) {
         composable(ViewScreens.ImageView.name) {
             ViewScreen.ShowImageView()
         }
+        composable(ViewScreens.Drawer.name) {
+            ViewScreen.ShowDrawer()
+        }
     }
 }
 
