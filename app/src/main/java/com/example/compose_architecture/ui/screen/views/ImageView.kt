@@ -1,4 +1,4 @@
-package com.example.compose_architecture.screen.views
+package com.example.compose_architecture.ui.screen.views
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

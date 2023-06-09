@@ -1,4 +1,4 @@
-package com.example.compose_architecture.screen.activity
+package com.example.compose_architecture.ui.activity
 
 import android.app.Activity
 import android.content.Context
