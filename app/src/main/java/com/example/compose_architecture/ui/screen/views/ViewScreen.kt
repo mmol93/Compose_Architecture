@@ -179,6 +179,7 @@ object ViewScreen {
 
     /**
      * 컴포즈의 Drawer에 대한 예시
+     * 참조: https://developer.android.com/jetpack/compose/layouts/material?hl=ko
      * */
     @Composable
     fun ShowDrawer() {
@@ -229,6 +230,7 @@ object ViewScreen {
                 Button(onClick = {
                     scope.launch {
                         scaffoldState.drawerState.apply {
+                            // drawer의 open/close는 비동기로 진행되야한다.
                             if (isClosed) open() else close()
                         }
                     }
