@@ -23,6 +23,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.compose_architecture.model.screen.MainScreens
 import com.example.compose_architecture.model.screen.StartScreens
+import com.example.compose_architecture.model.screen.ViewScreens
+import com.example.compose_architecture.ui.screen.views.ViewScreen
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SetMainScreen(navController)
+                    SetMainScreenWithNavigation(navController)
                 }
             }
         }
@@ -45,13 +47,13 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SetMainScreen(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = StartScreens.Main.name) {
+fun SetMainScreenWithNavigation(navHostController: NavHostController) {
+    NavHost(navController = navHostController, startDestination = StartScreens.Main.name) {
         composable(StartScreens.Main.name) {
-            ShowHomeScreen(navController)
+            ShowHomeScreen(navHostController = navHostController)
         }
         composable(MainScreens.View.name) {
-
+            ViewScreen.ShowViewScreen(mainActivityNavHostController = navHostController)
         }
 
         composable(MainScreens.Functions.name) {
@@ -64,11 +66,14 @@ fun SetMainScreen(navController: NavHostController) {
         composable(MainScreens.Animations.name) {
 
         }
+        composable(ViewScreens.ImageView.name) {
+            ViewScreen.ShowImageView()
+        }
     }
 }
 
 @Composable
-private fun ShowHomeScreen(navController: NavHostController) {
+private fun ShowHomeScreen(navHostController: NavHostController) {
     Column {
         LazyColumn {
             items(count = MainScreens.values().size) { index ->
@@ -77,7 +82,7 @@ private fun ShowHomeScreen(navController: NavHostController) {
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier
                         .clickable {
-                            navController.navigate(MainScreens.values()[index].name)
+                            navHostController.navigate(MainScreens.values()[index].name)
                         }
                         .padding(20.dp)
                         .fillMaxWidth()

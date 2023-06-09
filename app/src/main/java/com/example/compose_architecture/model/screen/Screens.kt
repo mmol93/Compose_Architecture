@@ -21,3 +21,10 @@ enum class MainScreens {
     Animations,
     Examples,
 }
+
+enum class ViewScreens {
+    ImageView,
+    Drawer,
+    TopBar,
+    TextView,
+}
