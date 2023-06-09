@@ -36,13 +36,7 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.example.compose_architecture.model.screen.StartScreens
 import com.example.compose_architecture.screen.UiState
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 import com.example.compose_architecture.viewModel.StartActivityViewModel
@@ -84,7 +78,6 @@ class StartActivity : ComponentActivity() {
             // Turn off the decor fitting system windows, which allows us to handle insets,
             // including IME animations
             WindowCompat.setDecorFitsSystemWindows(window, false)
-            val navController = rememberNavController()
 
             Compose_ArchitectureTheme() {
                 Surface(
@@ -94,33 +87,10 @@ class StartActivity : ComponentActivity() {
                     ShowOnBoarding(
                         context = this,
                         titles = onBoardingTitleList,
-                        images = onBoardingImages,
-                        navController = navController
+                        images = onBoardingImages
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun SetScreen(context: Context, titles: List<String>, images: List<String>) {
-    val navController = rememberNavController()
-    val backStackEntry = navController.currentBackStackEntryAsState()
-    val currentScreen = StartScreens.fromRoute(backStackEntry.value?.destination?.route)
-
-    NavHost(navController = navController, startDestination = StartScreens.Start.name) {
-        composable(StartScreens.Start.name) {
-            ShowOnBoarding(
-                context = context,
-                titles = titles,
-                images = images,
-                navController = navController
-            )
-        }
-
-        composable(StartScreens.Main.name) {
-            Main()
         }
     }
 }
@@ -131,7 +101,6 @@ private fun ShowOnBoarding(
     context: Context,
     titles: List<String>,
     images: List<String>,
-    navController: NavController
 ) {
     val pagerState = rememberPagerState()
 
@@ -178,18 +147,5 @@ private fun ShowOnBoarding(
                 Text(text = "Next Page")
             }
         }
-    }
-}
-
-@Composable
-fun Main() {
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "asdfsa")
     }
 }
