@@ -22,9 +22,15 @@ enum class MainScreens {
     Examples,
 }
 
+/**
+ * 아래의 모든 Screen을 SetMainScreenWithNavigation에 경로 셋팅해야함
+ * */
 enum class ViewScreens {
     ImageView,
     Drawer,
     TopBar,
     TextView,
+    BottomSheet,
+    Dialog,
+    SnackBar
 }
