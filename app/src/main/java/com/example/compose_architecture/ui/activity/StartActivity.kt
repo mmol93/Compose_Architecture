@@ -1,4 +1,4 @@
-package com.example.compose_architecture.screen.activity
+package com.example.compose_architecture.ui.activity
 
 import android.app.Activity
 import android.content.Context
@@ -36,13 +36,7 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import com.example.compose_architecture.model.screen.StartScreens
 import com.example.compose_architecture.screen.UiState
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 import com.example.compose_architecture.viewModel.StartActivityViewModel
@@ -90,7 +84,7 @@ class StartActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SetScreen(
+                    ShowOnBoarding(
                         context = this,
                         titles = onBoardingTitleList,
                         images = onBoardingImages
@@ -101,35 +95,12 @@ class StartActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun SetScreen(context: Context, titles: List<String>, images: List<String>) {
-    val navController = rememberNavController()
-    val backStackEntry = navController.currentBackStackEntryAsState()
-    val currentScreen = StartScreens.fromRoute(backStackEntry.value?.destination?.route)
-
-    NavHost(navController = navController, startDestination = StartScreens.Start.name) {
-        composable(StartScreens.Start.name) {
-            ShowOnBoarding(
-                context = context,
-                titles = titles,
-                images = images,
-                navController = navController
-            )
-        }
-
-        composable(StartScreens.Main.name) {
-            Main()
-        }
-    }
-}
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ShowOnBoarding(
+private fun ShowOnBoarding(
     context: Context,
     titles: List<String>,
     images: List<String>,
-    navController: NavController
 ) {
     val pagerState = rememberPagerState()
 
@@ -176,18 +147,5 @@ fun ShowOnBoarding(
                 Text(text = "Next Page")
             }
         }
-    }
-}
-
-@Composable
-fun Main() {
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(text = "asdfsa")
     }
 }
