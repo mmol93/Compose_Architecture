@@ -21,6 +21,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -139,6 +141,26 @@ object ViewScreen {
                             .clip(CircleShape)
                             // 16:9 비율로 만들기
                             .aspectRatio(16f / 9f)
+                    )
+
+                    Spacer(modifier = Modifier.height(spacerHeight))
+
+                    // 이미지에 모자이크 처리하기
+                    AsyncImage(
+                        model = imageUrl,
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(300.dp)
+                            .clip(CircleShape)
+                            // 이미지에 모자이크 효과를 넣는다.
+                            .blur(
+                                // 숫자가 높을수록 강한 모자이크가 들어간다.
+                                radiusX = 20.dp,
+                                radiusY = 20.dp,
+                                edgeTreatment = BlurredEdgeTreatment(RoundedCornerShape(8.dp))
+                            )
                     )
                 }
             }
