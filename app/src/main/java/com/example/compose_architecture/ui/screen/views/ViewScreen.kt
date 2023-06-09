@@ -4,10 +4,12 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,6 +19,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -25,6 +28,8 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
@@ -39,6 +44,7 @@ import coil.compose.AsyncImage
 import com.example.compose_architecture.R
 import com.example.compose_architecture.model.screen.ViewScreens
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
+import kotlinx.coroutines.launch
 
 object ViewScreen {
     /**
@@ -177,6 +183,7 @@ object ViewScreen {
     @Composable
     fun ShowDrawer() {
         val scaffoldState = rememberScaffoldState()
+        val scope = rememberCoroutineScope()
         val drawerItemList = listOf("내 정보", "게임", "설정")
         // drawer를 사용하기 위해서 Scaffold를 사용하지 않아도 되지만 사용하는 것이 좋다.
         Scaffold(
@@ -208,9 +215,26 @@ object ViewScreen {
                     }
                 }
             },
+            // 제스처로 draw를 open / close 할 수 있는 기능은 켜고 끌 수 있다
+            drawerGesturesEnabled = true
         ) {
-            Column(modifier = Modifier.padding(it)) {
-
+            Column(
+                modifier = Modifier
+                    .padding(it)
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Button(onClick = {
+                    scope.launch {
+                        scaffoldState.drawerState.apply {
+                            if (isClosed) open() else close()
+                        }
+                    }
+                }) {
+                    Text(text = "open / close Drawer")
+                }
             }
         }
     }
