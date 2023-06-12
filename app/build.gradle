@@ -85,4 +85,8 @@ dependencies {
 
     // navigation - https://developer.android.com/jetpack/compose/navigation?hl=ko
     implementation "androidx.navigation:navigation-compose:2.6.0"
+
+    // Material3 - https://developer.android.com/jetpack/androidx/releases/compose-material3?hl=ko
+    implementation "androidx.compose.material3:material3:1.1.0"
+    implementation "androidx.compose.material3:material3-window-size-class:1.1.0"
 }

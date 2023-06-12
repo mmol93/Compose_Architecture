@@ -38,7 +38,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.compose.AsyncImage
 import com.example.compose_architecture.screen.UiState
-import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 import com.example.compose_architecture.viewModel.StartActivityViewModel
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import kotlinx.coroutines.flow.collect
@@ -79,17 +78,15 @@ class StartActivity : ComponentActivity() {
             // including IME animations
             WindowCompat.setDecorFitsSystemWindows(window, false)
 
-            Compose_ArchitectureTheme() {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    ShowOnBoarding(
-                        context = this,
-                        titles = onBoardingTitleList,
-                        images = onBoardingImages
-                    )
-                }
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                ShowOnBoarding(
+                    context = this,
+                    titles = onBoardingTitleList,
+                    images = onBoardingImages
+                )
             }
         }
     }

@@ -27,7 +27,8 @@ enum class MainScreens {
  * */
 enum class ViewScreens {
     ImageView,
-    Drawer,
+    DrawerM2,
+    DrawerM3,
     TopBar,
     TextView,
     BottomSheet,
