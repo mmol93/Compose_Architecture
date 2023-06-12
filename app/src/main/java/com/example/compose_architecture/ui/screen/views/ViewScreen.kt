@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -25,8 +26,16 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.Divider
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -56,7 +65,7 @@ object ViewScreen {
             items(count = ViewScreens.values().size) { index ->
                 Text(
                     text = ViewScreens.values()[index].name,
-                    style = MaterialTheme.typography.headlineMedium,
+                    style = MaterialTheme.typography.headlineSmall,
                     modifier = Modifier
                         .clickable {
                             mainActivityNavHostController.navigate(ViewScreens.values()[index].name)
@@ -70,7 +79,7 @@ object ViewScreen {
     }
 
     /**
-     * 컴포즈의 ImageView에 대한 예시
+     * 컴포즈의 ImageView에 대한 예시(둥근 이미지 만들기, 테두리 넣기 등)
      * 참조: https://developer.android.com/jetpack/compose/graphics/images/customize?hl=ko
      * */
     @Composable
@@ -178,14 +187,20 @@ object ViewScreen {
     }
 
     /**
-     * 컴포즈의 Drawer에 대한 예시
-     * 참조: https://developer.android.com/jetpack/compose/layouts/material?hl=ko
+     * 컴포즈의 Material2를 사용한 Drawer 만들기
+     * 디자인 가이드: https://m3.material.io/components/navigation-drawer/guidelines
+     * 개발 가이드: https://developer.android.com/jetpack/compose/layouts/material?hl=ko
      * */
     @Composable
-    fun ShowDrawer() {
+    fun ShowDrawerM2() {
         val scaffoldState = rememberScaffoldState()
         val scope = rememberCoroutineScope()
         val drawerItemList = listOf("내 정보", "게임", "설정")
+        val drawerIconList = listOf(
+            R.drawable.baseline_supervised_user_circle_24,
+            R.drawable.baseline_videogame_asset_24,
+            R.drawable.baseline_settings_24
+        )
         // drawer를 사용하기 위해서 Scaffold를 사용하지 않아도 되지만 사용하는 것이 좋다.
         Scaffold(
             scaffoldState = scaffoldState,
@@ -196,15 +211,18 @@ object ViewScreen {
                 // LazyColum을 사용해서 만들면 혹시 휴대폰이 작아서 모든 메뉴가 표시되지 않더라도 스크롤 할 수 있다.
                 LazyColumn {
                     items(count = drawerItemList.size) { index ->
-                        Row(modifier = Modifier.clickable { }) {
+                        Row(
+                            modifier = Modifier.clickable { },
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Image(
-                                painter = painterResource(id = R.drawable.android_logo),
+                                painter = painterResource(id = drawerIconList[index]),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .width(64.dp)
                                     .padding(8.dp)
                             )
-                            androidx.compose.material3.Text(
+                            Text(
                                 text = drawerItemList[index],
                                 style = MaterialTheme.typography.headlineMedium,
                                 modifier = Modifier
@@ -212,7 +230,6 @@ object ViewScreen {
                                     .fillMaxWidth()
                             )
                         }
-                        Divider(color = Color.Gray, thickness = 2.dp)
                     }
                 }
             },
@@ -239,5 +256,80 @@ object ViewScreen {
                 }
             }
         }
+    }
+
+    /**
+     * 컴포즈의 Material3를 사용한 Drawer 만들기
+     * 디자인 가이드: https://m3.material.io/components/navigation-drawer/guidelines
+     * 개발 가이드: https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#ModalNavigationDrawer(kotlin.Function0,androidx.compose.ui.Modifier,androidx.compose.material3.DrawerState,kotlin.Boolean,androidx.compose.ui.graphics.Color,kotlin.Function0)
+     * */
+    @Composable
+    fun ShowDrawerM3() {
+        // 둘 다 Material3를 import한 함수임에 주의
+        val drawerState = rememberDrawerState(DrawerValue.Closed)
+        val scope = rememberCoroutineScope()
+        val drawerItemList = listOf("내 정보", "게임", "설정")
+        val drawerIconList = listOf(
+            R.drawable.baseline_supervised_user_circle_24,
+            R.drawable.baseline_videogame_asset_24,
+            R.drawable.baseline_settings_24
+        )
+        val selectedItem = remember { mutableStateOf(drawerItemList[0]) }
+
+        // NavigarionDrawer가 최상위 View가 된다.(Material3 임에 주의)
+        // Drawer를 만드는 방법은 Material2의 drawer와 거의 동일하다.
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            drawerContent = {
+                // ModalDrawerSheet에 modifier를 정의해서 drawer의 크기를 조절할 수 있다.
+                ModalDrawerSheet(modifier = Modifier.width(250.dp)) {
+                    Spacer(Modifier.height(12.dp))
+                    drawerItemList.forEachIndexed { index, drawerItemTitle ->
+                        // drawer의 각 아이템 정의
+                        NavigationDrawerItem(
+                            modifier = Modifier.padding(NavigationDrawerItemDefaults.ItemPadding),
+                            icon = {
+                                Icon(
+                                    painter = painterResource(id = drawerIconList[index]),
+                                    contentDescription = null
+                                )
+                            },
+                            label = {
+                                Text(
+                                    text = drawerItemTitle,
+                                    style = MaterialTheme.typography.headlineSmall,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                )
+                            },
+                            // 현재 선택된 아이템을 지정해줘야한다.
+                            selected = drawerItemTitle == selectedItem.value,
+                            // drawer의 각 아이템을 클릭했을 때 동작
+                            onClick = {
+                                scope.launch { drawerState.close() }
+                                selectedItem.value = drawerItemTitle
+                            }
+                        )
+                    }
+                }
+            },
+            // content 안에 Column 등을 사용해서 그 밖의 View 들을 정의한다.
+            // 즉, Layer 상으로 Drawer가 제일 위에 있고 그 아래에 다른 view들이 존재한다.
+            content = {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = if (drawerState.isClosed) ">>> Swipe >>>" else "<<< Swipe <<<")
+                    Spacer(Modifier.height(20.dp))
+                    // 외부에서 drawerState를 사용하여 drawer를 열고 닫을 수 있다.
+                    Button(onClick = { scope.launch { drawerState.open() } }) {
+                        Text("Click to open")
+                    }
+                }
+            }
+        )
     }
 }
