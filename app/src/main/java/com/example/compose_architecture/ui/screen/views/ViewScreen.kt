@@ -22,12 +22,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
@@ -47,6 +52,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
@@ -104,84 +110,82 @@ object ViewScreen {
             }
 
             val scrollState = rememberScrollState()
-            Surface() {
-                Column(modifier = Modifier.verticalScroll(scrollState)) {
-                    // 둥근 이미지 만들기
-                    AsyncImage(
-                        model = imageUrl,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(300.dp)
-                            // 원형으로 만들기
-                            .clip(CircleShape)
-                    )
+            Column(modifier = Modifier.verticalScroll(scrollState)) {
+                // 둥근 이미지 만들기
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        // 원형으로 만들기
+                        .clip(CircleShape)
+                )
 
-                    Spacer(modifier = Modifier.height(spacerHeight))
+                Spacer(modifier = Modifier.height(spacerHeight))
 
-                    // 라운딩 처리된 이미지 만들기
-                    AsyncImage(
-                        model = imageUrl,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(300.dp)
-                            // 라운딩 효과
-                            .clip(shape = RoundedCornerShape(16.dp))
-                    )
+                // 라운딩 처리된 이미지 만들기
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        // 라운딩 효과
+                        .clip(shape = RoundedCornerShape(16.dp))
+                )
 
-                    Spacer(modifier = Modifier.height(spacerHeight))
+                Spacer(modifier = Modifier.height(spacerHeight))
 
-                    // 둥근 테두리 씌우기
-                    AsyncImage(
-                        model = imageUrl,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(300.dp)
-                            .clip(CircleShape)
-                            // 테두리 생성
-                            .border(BorderStroke(4.dp, rainbowColorsBrush), CircleShape)
-                    )
+                // 둥근 테두리 씌우기
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        .clip(CircleShape)
+                        // 테두리 생성
+                        .border(BorderStroke(4.dp, rainbowColorsBrush), CircleShape)
+                )
 
-                    Spacer(modifier = Modifier.height(spacerHeight))
+                Spacer(modifier = Modifier.height(spacerHeight))
 
-                    // 특정 비율의 이미지 만들기
-                    AsyncImage(
-                        model = imageUrl,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(300.dp)
-                            .clip(CircleShape)
-                            // 16:9 비율로 만들기
-                            .aspectRatio(16f / 9f)
-                    )
+                // 특정 비율의 이미지 만들기
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        .clip(CircleShape)
+                        // 16:9 비율로 만들기
+                        .aspectRatio(16f / 9f)
+                )
 
-                    Spacer(modifier = Modifier.height(spacerHeight))
+                Spacer(modifier = Modifier.height(spacerHeight))
 
-                    // 이미지에 모자이크 처리하기
-                    AsyncImage(
-                        model = imageUrl,
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(300.dp)
-                            .clip(CircleShape)
-                            // 이미지에 모자이크 효과를 넣는다.
-                            .blur(
-                                // 숫자가 높을수록 강한 모자이크가 들어간다.
-                                radiusX = 20.dp,
-                                radiusY = 20.dp,
-                                edgeTreatment = BlurredEdgeTreatment(RoundedCornerShape(8.dp))
-                            )
-                    )
-                }
+                // 이미지에 모자이크 처리하기
+                AsyncImage(
+                    model = imageUrl,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(300.dp)
+                        .clip(CircleShape)
+                        // 이미지에 모자이크 효과를 넣는다.
+                        .blur(
+                            // 숫자가 높을수록 강한 모자이크가 들어간다.
+                            radiusX = 20.dp,
+                            radiusY = 20.dp,
+                            edgeTreatment = BlurredEdgeTreatment(RoundedCornerShape(8.dp))
+                        )
+                )
             }
         }
     }
@@ -314,7 +318,7 @@ object ViewScreen {
                 }
             },
             // content 안에 Column 등을 사용해서 그 밖의 View 들을 정의한다.
-            // 즉, Layer 상으로 Drawer가 제일 위에 있고 그 아래에 다른 view들이 존재한다.
+            // 즉, Layer 상으로 Drawer(=ModalNavigationDrawer)가 제일 위에 있고 그 아래에 다른 view들이 존재한다.
             content = {
                 Column(
                     modifier = Modifier
@@ -327,6 +331,119 @@ object ViewScreen {
                     // 외부에서 drawerState를 사용하여 drawer를 열고 닫을 수 있다.
                     Button(onClick = { scope.launch { drawerState.open() } }) {
                         Text("Click to open")
+                    }
+                }
+            }
+        )
+    }
+
+    /**
+     * Material3의 Scaffold를 사용한 TopBar 만들기
+     * 디자인 가이드: https://m3.material.io/components/top-app-bar/guidelines
+     * 개발 가이드: https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#CenterAlignedTopAppBar(kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Function0,kotlin.Function1,androidx.compose.foundation.layout.WindowInsets,androidx.compose.material3.TopAppBarColors,androidx.compose.material3.TopAppBarScrollBehavior)
+     * */
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ShowTopAppBar(navHostController: NavHostController) {
+        Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            "Centered TopAppBar",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    },
+                    // flutter와 다르게 stack이 있어도 자동으로 뒤로가기 아이콘이 붙진 않는다.
+                    navigationIcon = {
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Menu,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = {
+                            navHostController.navigate(ViewScreens.Temp.name)
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
+                )
+            },
+            content = { innerPadding ->
+                LazyColumn(
+                    contentPadding = innerPadding,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    val list = (0..75).map { it.toString() }
+                    items(count = list.size) {
+                        Text(
+                            text = list[it],
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        )
+                    }
+                }
+            }
+        )
+    }
+
+    /**
+     * Navigate시 사용되는 임시 화면
+     * */
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ShowTempScreen() {
+        Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            "Temp Screen",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Menu,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = { }) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
+                )
+            },
+            content = { innerPadding ->
+                LazyColumn(
+                    contentPadding = innerPadding,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    val list = (0..75).map { it.toString() }
+                    items(count = list.size) {
+                        Text(
+                            text = list[it],
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        )
                     }
                 }
             }
