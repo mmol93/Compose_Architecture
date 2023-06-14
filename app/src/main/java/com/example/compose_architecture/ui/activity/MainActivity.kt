@@ -1,5 +1,6 @@
 package com.example.compose_architecture.ui.activity
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -39,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SetMainScreenWithNavigation(navController)
+                    SetMainScreenWithNavigation(this, navController)
                 }
             }
         }
@@ -47,7 +48,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SetMainScreenWithNavigation(navHostController: NavHostController) {
+fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostController) {
     NavHost(navController = navHostController, startDestination = StartScreens.Main.name) {
         composable(StartScreens.Main.name) {
             ShowHomeScreen(navHostController = navHostController)
@@ -83,6 +84,9 @@ fun SetMainScreenWithNavigation(navHostController: NavHostController) {
         }
         composable(ViewScreens.CollapsingTopAppBar.name) {
             ViewScreen.ShowCollapsingTopAppBar()
+        }
+        composable(ViewScreens.TextView.name) {
+            ViewScreen.ShowTextViews(context = context)
         }
     }
 }
