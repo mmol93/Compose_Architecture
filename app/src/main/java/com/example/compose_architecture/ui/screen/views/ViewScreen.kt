@@ -38,7 +38,9 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,6 +52,7 @@ import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -449,4 +452,71 @@ object ViewScreen {
             }
         )
     }
+
+    /**
+     * Collapsing 가능한 TopAppBar 구현
+     * */
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ShowCollapsingTopAppBar() {
+        /**
+         * 주로 다음 옵션 2가지가 사용된다.
+         * 1. enterAlwaysScrollBehavior - 위로 스크롤하면 바로 다시 TopAppBar가 나온다.
+         * 2. exitUntilCollapsedScrollBehavior - 제일 위까지 스크롤해야만 다시 TopAppBar가 나온다.
+         *
+         * 둘 다 아래로 스크롤하면 TopAppBar가 사라지는 공통 기능을 갖고 있다.
+         * */
+        val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
+        Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    // scrollBehavior을 추가한다.
+                    scrollBehavior = scrollBehavior,
+                    title = {
+                        Text(
+                            "Temp Screen",
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = { /* doSomething() */ }) {
+                            Icon(
+                                imageVector = Icons.Filled.Menu,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = { }) {
+                            Icon(
+                                imageVector = Icons.Filled.Favorite,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
+                )
+            },
+            modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+            content = { innerPadding ->
+                LazyColumn(
+                    contentPadding = innerPadding,
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    val list = (0..75).map { it.toString() }
+                    items(count = list.size) {
+                        Text(
+                            text = list[it],
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        )
+                    }
+                }
+            }
+        )
+    }
+
 }

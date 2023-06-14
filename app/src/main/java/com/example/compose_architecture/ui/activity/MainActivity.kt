@@ -81,6 +81,9 @@ fun SetMainScreenWithNavigation(navHostController: NavHostController) {
         composable(ViewScreens.Temp.name) {
             ViewScreen.ShowTempScreen()
         }
+        composable(ViewScreens.CollapsingTopAppBar.name) {
+            ViewScreen.ShowCollapsingTopAppBar()
+        }
     }
 }
 
