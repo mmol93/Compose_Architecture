@@ -29,9 +29,13 @@ enum class ViewScreens {
     ImageView,
     DrawerM2,
     DrawerM3,
-    TopBar,
+    TopAppBar,
+    CollapsingTopAppBar,
     TextView,
     BottomSheet,
     Dialog,
-    SnackBar
+    SnackBar,
+    BottomNavigation,
+    Card,
+    Temp,
 }

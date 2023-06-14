@@ -75,6 +75,12 @@ fun SetMainScreenWithNavigation(navHostController: NavHostController) {
         composable(ViewScreens.DrawerM3.name) {
             ViewScreen.ShowDrawerM3()
         }
+        composable(ViewScreens.TopAppBar.name) {
+            ViewScreen.ShowTopAppBar(navHostController = navHostController)
+        }
+        composable(ViewScreens.Temp.name) {
+            ViewScreen.ShowTempScreen()
+        }
     }
 }
 
