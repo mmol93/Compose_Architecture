@@ -705,6 +705,8 @@ object ViewScreen {
      * 1. BottomSheetScaffold - Scaffold 안에 이미 BottomSheet를 만들 수 있는 옵션이 있기 때문에 간다하게 만들 수 있고 코드도 더 짧다. 대신 해당 BottomSheetScaffold을 반드시 사용해야하는 조건이 붙음
      * 2. ModalBottomSheet - 단순히 하나의 View나 Layout으로써 BottomSheet를 만들 수 있다.(즉, 독립적) 대신 BottomSheetScaffold에 비해 코드가 길고 복잡해진다.
      * 여기서는 독립적으로 사용할 수 있는 ModalBottomSheet을 사용해서 정의한다.
+     *
+     * 개발 가이드: https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#ModalBottomSheet(kotlin.Function0,androidx.compose.ui.Modifier,androidx.compose.material3.SheetState,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.Dp,androidx.compose.ui.graphics.Color,kotlin.Function0,kotlin.Function1)
      * */
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
