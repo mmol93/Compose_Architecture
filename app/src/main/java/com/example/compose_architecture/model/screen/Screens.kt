@@ -38,4 +38,6 @@ enum class ViewScreens {
     BottomNavigation,
     Card,
     Temp,
+    List,
+    WebView
 }
