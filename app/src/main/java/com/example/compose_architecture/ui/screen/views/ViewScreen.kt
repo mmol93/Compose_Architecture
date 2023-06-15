@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
@@ -33,12 +34,15 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -47,6 +51,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -66,6 +71,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
@@ -690,6 +696,94 @@ object ViewScreen {
                 }
             )
             Spacer(modifier = Modifier.height(spacer))
+        }
+    }
+
+    /**
+     * 기본적인 BottomSheet 사용 방법
+     * M3에서 BottomSheet를 생성하는 방법은 두 가지가 있다.
+     * 1. BottomSheetScaffold - Scaffold 안에 이미 BottomSheet를 만들 수 있는 옵션이 있기 때문에 간다하게 만들 수 있고 코드도 더 짧다. 대신 해당 BottomSheetScaffold을 반드시 사용해야하는 조건이 붙음
+     * 2. ModalBottomSheet - 단순히 하나의 View나 Layout으로써 BottomSheet를 만들 수 있다.(즉, 독립적) 대신 BottomSheetScaffold에 비해 코드가 길고 복잡해진다.
+     * 여기서는 독립적으로 사용할 수 있는 ModalBottomSheet을 사용해서 정의한다.
+     * */
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ShowBottomSheetView() {
+        // BottomSheet on/off 상태 저장용
+        var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+        var skipPartiallyExpanded by remember { mutableStateOf(false) }
+        val scope = rememberCoroutineScope()
+        // BottomSheet 상태 저장
+        val bottomSheetState = rememberModalBottomSheetState(
+            // skipPartiallyExpanded on일 경우 BottomSheet가 화면 전체를 차지하게 펼쳐진다(한 번 접을 수 없고 내리면 완전히 숨겨진다)
+            skipPartiallyExpanded = skipPartiallyExpanded
+        )
+        // BottomSheet를 보여주기 위해 필요한 View를 셋팅하기 위한 Column
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Row(
+                Modifier.toggleable(
+                    value = skipPartiallyExpanded,
+                    role = Role.Checkbox,
+                    onValueChange = { checked -> skipPartiallyExpanded = checked }
+                )
+            ) {
+                Checkbox(checked = skipPartiallyExpanded, onCheckedChange = null)
+                Spacer(Modifier.width(16.dp))
+                Text("BottomSheet를 화면 가득히 열기")
+            }
+            Button(onClick = { openBottomSheet = !openBottomSheet }) {
+                Text(text = "Show Bottom Sheet")
+            }
+        }
+        // BottomSheet 제어 - 즉, openBottomSheet가 바뀔 때마다 ModalBottomSheet 다시 그린다(?)
+        if (openBottomSheet) {
+            ModalBottomSheet(
+                // BottomSheet가 dismiss되 었을 때 어떤 행동을 할지 정의
+                onDismissRequest = { openBottomSheet = false },
+                // BottomSheet의 열고 닫기 상태 정의
+                sheetState = bottomSheetState,
+            ) {
+                // ModalBottomSheet 안에 어떤 형태(View, Layout)로 넣을지를 정의한다.
+                Column(
+                    Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Button(
+                        // 위에 있는 onDismissRequest 안에서 BottomSheet를 숨기는 처리를 하지 않고 그 밖에서도 하고싶다면 아래와 같이 ButtomSheetState를 지정해줘야한다.
+                        onClick = {
+                            scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+                                if (!bottomSheetState.isVisible) {
+                                    openBottomSheet = false
+                                }
+                            }
+                        }
+                    ) {
+                        Text("Hide Bottom Sheet")
+                    }
+                }
+                var text by remember { mutableStateOf("") }
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = text,
+                    onValueChange = { text = it })
+                LazyColumn {
+                    items(50) {
+                        ListItem(
+                            headlineContent = { Text("Item $it") },
+                            leadingContent = {
+                                Icon(
+                                    Icons.Default.Favorite,
+                                    contentDescription = "Localized description"
+                                )
+                            }
+                        )
+                    }
+                }
+            }
         }
     }
 }

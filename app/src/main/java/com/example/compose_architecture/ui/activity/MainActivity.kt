@@ -88,6 +88,9 @@ fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostCont
         composable(ViewScreens.TextView.name) {
             ViewScreen.ShowTextViews(context = context)
         }
+        composable(ViewScreens.BottomSheet.name) {
+            ViewScreen.ShowBottomSheetView()
+        }
     }
 }
 
