@@ -37,7 +37,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.compose.AsyncImage
-import com.example.compose_architecture.screen.UiState
+import com.example.compose_architecture.ui.UiState
 import com.example.compose_architecture.viewModel.StartActivityViewModel
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import kotlinx.coroutines.flow.collect

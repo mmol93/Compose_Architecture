@@ -1,4 +1,4 @@
-package com.example.compose_architecture.screen
+package com.example.compose_architecture.ui
 
 sealed interface UiState {
     object Loading : UiState

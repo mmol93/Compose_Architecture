@@ -2,7 +2,7 @@ package com.example.compose_architecture.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.compose_architecture.screen.UiState
+import com.example.compose_architecture.ui.UiState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flowOf
