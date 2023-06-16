@@ -802,9 +802,10 @@ object ViewScreen {
 
     /**
      * 각 종 dialog를 출력해본다
-     * 1. 일반적인 버튼 클릭을 할 수 있는 dialog - 과거 AlertDialog에는 버튼을 3개까지 설정할 수 있었지만 지금은 2개만 설정가능
+     * 1. 일반적인 버튼 클릭을 할 수 있는 dialog - 기존 AlertDialog에는 버튼을 3개까지 설정할 수 있었지만 지금은 2개만 설정가능
      * 2. 특정 날짜를 선택할 수 있는 dialog
      * 3. 특정 범위의 날짜를 선택할 수 있는 dialog
+     * 개발 가이드: https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#AlertDialog(kotlin.Function0,androidx.compose.ui.Modifier,androidx.compose.ui.window.DialogProperties,kotlin.Function0)
      * */
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
