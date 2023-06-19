@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.compose_architecture.model.screen.MainScreens
 import com.example.compose_architecture.model.screen.StartScreens
 import com.example.compose_architecture.model.screen.ViewScreens
+import com.example.compose_architecture.ui.screen.examples.ExampleScreen
 import com.example.compose_architecture.ui.screen.views.ViewScreen
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 
@@ -62,7 +63,7 @@ fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostCont
         }
 
         composable(MainScreens.Examples.name) {
-
+            ExampleScreen.ShowExampleScreen(mainActivityNavHostController = navHostController)
         }
         composable(MainScreens.Animations.name) {
 

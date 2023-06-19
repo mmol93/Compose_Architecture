@@ -42,3 +42,7 @@ enum class ViewScreens {
     WebView,
     SearchBar,
 }
+
+enum class ExampleScreens {
+    SplitFlap,
+}
