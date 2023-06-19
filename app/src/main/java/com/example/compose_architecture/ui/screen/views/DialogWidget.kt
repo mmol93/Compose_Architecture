@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
 @Composable
-fun ShowAlertDialogWidget(openAlertDialog: MutableState<Boolean>) {
+fun ViewScreen.ShowAlertDialogWidget(openAlertDialog: MutableState<Boolean>) {
     // 메인 아이콘 하나를 갖고 있는 AlertDialog
     if (openAlertDialog.value) {
         AlertDialog(
@@ -83,7 +83,7 @@ fun ShowAlertDialogWidget(openAlertDialog: MutableState<Boolean>) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowDateDialogWidget(openDateDialog: MutableState<Boolean>) {
+fun ViewScreen.ShowDateDialogWidget(openDateDialog: MutableState<Boolean>) {
     // ------------- DateDialog -------------------
     // 클릭하여 받은 날짜 데이터를 표시하기 위해 스낵바 사용
     val snackStateForDateDialog = remember { SnackbarHostState() }
@@ -132,7 +132,7 @@ fun ShowDateDialogWidget(openDateDialog: MutableState<Boolean>) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowDatePickerDialogWidget(openDateRangeDialog: MutableState<Boolean>) {
+fun ViewScreen.ShowDatePickerDialogWidget(openDateRangeDialog: MutableState<Boolean>) {
     // ------------- DateRangePicker -------------------
     val snackStateForDateRangeDialog = remember { SnackbarHostState() }
     val snackScopeForDateRangeDialog = rememberCoroutineScope()

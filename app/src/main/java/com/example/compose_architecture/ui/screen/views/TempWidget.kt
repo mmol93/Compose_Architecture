@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
  * */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowTempWidget() {
+fun ViewScreen.ShowTempWidget() {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(

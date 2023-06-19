@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun ShowDrawerWidgetM2() {
+fun ViewScreen.ShowDrawerWidgetM2() {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val drawerItemList = listOf("내 정보", "게임", "설정")
@@ -106,7 +106,7 @@ fun ShowDrawerWidgetM2() {
 }
 
 @Composable
-fun ShowDrawerWidgetM3() {
+fun ViewScreen.ShowDrawerWidgetM3() {
     // 둘 다 Material3를 import한 함수임에 주의
     val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()

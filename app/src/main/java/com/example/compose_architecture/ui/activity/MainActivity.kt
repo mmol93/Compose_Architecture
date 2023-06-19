@@ -94,6 +94,10 @@ fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostCont
         composable(ViewScreens.Dialog.name) {
             ViewScreen.ShowDialog()
         }
+
+        composable(ViewScreens.SnackBar.name) {
+            ViewScreen.ShowSnackBar()
+        }
     }
 }
 
