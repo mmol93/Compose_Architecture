@@ -25,7 +25,7 @@ import coil.compose.AsyncImage
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 
 @Composable
-fun ShowImageWidget() {
+fun ViewScreen.ShowImageWidget() {
     val spacerHeight = 20.dp
     val imageUrl =
         "https://store-images.microsoft.com/image/apps.21169.9007199266244427.cc23e1b0-9845-4273-918c-f8dbdb058401.ebc29770-cc7b-4af1-89cc-2085c1498f24"

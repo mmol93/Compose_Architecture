@@ -26,7 +26,7 @@ import com.example.compose_architecture.model.screen.ViewScreens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowTopAppBarWidget(navHostController: NavHostController) {
+fun ViewScreen.ShowTopAppBarWidget(navHostController: NavHostController) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -80,7 +80,7 @@ fun ShowTopAppBarWidget(navHostController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowCollapsingTopAppBarWidget() {
+fun ViewScreen.ShowCollapsingTopAppBarWidget() {
     /**
      * 주로 다음 옵션 2가지가 사용된다.
      * 1. enterAlwaysScrollBehavior - 위로 스크롤하면 바로 다시 TopAppBar가 나온다.

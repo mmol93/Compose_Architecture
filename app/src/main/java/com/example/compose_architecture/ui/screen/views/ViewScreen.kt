@@ -165,4 +165,28 @@ object ViewScreen {
             }
         }
     }
+
+    /**
+     * 스낵바를 만들어보고 여러 옵션에 대해 알아본다.
+     *
+     * 개발 가이드 - https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#Snackbar(androidx.compose.material3.SnackbarData,androidx.compose.ui.Modifier,kotlin.Boolean,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color)
+     * */
+    @Composable
+    fun ShowSnackBar() {
+        val openSnackBar = remember { mutableStateOf(false) }
+        // 아무 옵션이 없는 일반적인 스낵바
+        ShowSnackBarWidget(openSnackBar)
+
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Button(onClick = { openSnackBar.value = !openSnackBar.value }) {
+                Text(text = "show SnackBar")
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+        }
+
+    }
 }

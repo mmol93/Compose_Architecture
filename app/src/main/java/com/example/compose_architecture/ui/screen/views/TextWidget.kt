@@ -37,7 +37,7 @@ import com.example.compose_architecture.R
 import com.example.compose_architecture.util.showToast
 
 @Composable
-fun ShowTextWidget(context: Context) {
+fun ViewScreen.ShowTextWidget(context: Context) {
     val spacer = 20.dp
 
     // 테스트용 URL을 담고 있는 텍스트

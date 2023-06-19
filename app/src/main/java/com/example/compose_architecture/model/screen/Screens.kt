@@ -39,5 +39,6 @@ enum class ViewScreens {
     Card,
     Temp,
     List,
-    WebView
+    WebView,
+    SearchBar,
 }
