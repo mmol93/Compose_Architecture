@@ -36,4 +36,9 @@ object ExampleScreen {
             }
         }
     }
+
+    @Composable
+    fun ExampleScreen.ShowSplitFlapScreen() {
+        ShowSplitFlap()
+    }
 }
