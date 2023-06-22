@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.compose_architecture.model.screen.ExampleScreens
+import com.example.compose_architecture.ui.screen.examples.splitFlap.ShowSplitFlap
 
 object ExampleScreen {
     /**

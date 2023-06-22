@@ -89,4 +89,7 @@ dependencies {
     // Material3 - https://developer.android.com/jetpack/androidx/releases/compose-material3?hl=ko
     implementation "androidx.compose.material3:material3:1.1.0"
     implementation "androidx.compose.material3:material3-window-size-class:1.1.0"
+
+    // lifecycle - https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
 }

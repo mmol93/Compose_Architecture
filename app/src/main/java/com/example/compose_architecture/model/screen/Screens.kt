@@ -35,6 +35,7 @@ enum class ViewScreens {
     BottomSheet,
     Dialog,
     SnackBar,
+    PullRefresh,
     BottomNavigation,
     Card,
     Temp,

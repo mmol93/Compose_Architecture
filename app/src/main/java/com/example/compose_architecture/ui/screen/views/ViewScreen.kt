@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.compose_architecture.model.screen.ViewScreens
+import com.example.compose_architecture.ui.screen.views.pullRefresh.ShowPullRefreshWidget
 
 object ViewScreen {
     /**
@@ -187,6 +188,10 @@ object ViewScreen {
             }
             Spacer(modifier = Modifier.height(20.dp))
         }
+    }
 
+    @Composable
+    fun ShowPullRefresh() {
+        ShowPullRefreshWidget()
     }
 }
