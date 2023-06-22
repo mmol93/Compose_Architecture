@@ -104,6 +104,10 @@ fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostCont
         composable(ViewScreens.SnackBar.name) {
             ViewScreen.ShowSnackBar()
         }
+
+        composable(ViewScreens.PullRefresh.name) {
+            ViewScreen.ShowPullRefresh()
+        }
     }
 }
 

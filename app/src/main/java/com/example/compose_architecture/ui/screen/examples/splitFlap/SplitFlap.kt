@@ -1,4 +1,4 @@
-package com.example.compose_architecture.ui.screen.examples
+package com.example.compose_architecture.ui.screen.examples.splitFlap
 
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.animation.core.animate
