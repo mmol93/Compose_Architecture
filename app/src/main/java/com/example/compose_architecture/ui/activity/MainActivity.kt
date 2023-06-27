@@ -108,6 +108,10 @@ fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostCont
         composable(ViewScreens.PullRefresh.name) {
             ViewScreen.ShowPullRefresh()
         }
+
+        composable(ViewScreens.BottomNavigation.name) {
+            ViewScreen.ShowBottomNavigation()
+        }
     }
 }
 

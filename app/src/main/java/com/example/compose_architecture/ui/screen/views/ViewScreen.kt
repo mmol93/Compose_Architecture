@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.compose_architecture.model.screen.ViewScreens
+import com.example.compose_architecture.ui.screen.views.bottomNav.ShowBottomNavigationWidget
 import com.example.compose_architecture.ui.screen.views.pullRefresh.ShowPullRefreshWidget
 
 object ViewScreen {
@@ -190,8 +191,22 @@ object ViewScreen {
         }
     }
 
+    /**
+     * pull Refresh 기능을 만들어본다.
+     * */
     @Composable
     fun ShowPullRefresh() {
         ShowPullRefreshWidget()
+    }
+
+    /**
+     * BottomNavigation을 사용한 화면 전환
+     * 개발 가이드: https://developer.android.com/jetpack/compose/navigation?hl=ko#bottom-nav
+     * 개발 가이드2: https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#BottomNavigation(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.Dp,kotlin.Function1)
+     * 머터리얼 디자인 가이드: https://m2.material.io/components/bottom-navigation
+     * */
+    @Composable
+    fun ShowBottomNavigation() {
+        ShowBottomNavigationWidget()
     }
 }
