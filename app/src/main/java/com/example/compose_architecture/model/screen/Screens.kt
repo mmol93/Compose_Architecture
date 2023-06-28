@@ -42,6 +42,7 @@ enum class ViewScreens {
     List,
     WebView,
     SearchBar,
+    BottomAppBar,
 }
 
 enum class ExampleScreens {
