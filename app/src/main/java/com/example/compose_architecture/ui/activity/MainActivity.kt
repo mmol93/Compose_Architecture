@@ -112,6 +112,9 @@ fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostCont
         composable(ViewScreens.BottomNavigation.name) {
             ViewScreen.ShowBottomNavigation()
         }
+        composable(ViewScreens.Card.name) {
+            ViewScreen.ShowCard()
+        }
     }
 }
 

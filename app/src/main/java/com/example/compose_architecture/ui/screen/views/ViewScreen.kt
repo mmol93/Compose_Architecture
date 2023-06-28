@@ -209,4 +209,13 @@ object ViewScreen {
     fun ShowBottomNavigation() {
         ShowBottomNavigationWidget()
     }
+
+    /**
+     * CardWidget의 기본적인 사용 방법
+     * 디자인 가이드: https://m3.material.io/components/cards/overview
+     * */
+    @Composable
+    fun ShowCard() {
+        ShowCardWidget()
+    }
 }
