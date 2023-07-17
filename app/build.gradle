@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -27,11 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
     buildFeatures {
         compose true
@@ -93,6 +95,26 @@ dependencies {
     // Material - https://developer.android.com/jetpack/compose/navigation?hl=ko
     implementation "androidx.compose.material:material:1.4.3"
 
-    // lifecycle - https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
+    // lifecycle ViewModel - https://developer.android.com/jetpack/androidx/releases/lifecycle?hl=ko
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
+
+    // Paging - https://developer.android.com/jetpack/androidx/releases/paging?hl=ko
+    implementation "androidx.paging:paging-runtime:3.1.1"
+    implementation "androidx.paging:paging-compose:3.2.0-rc01"
+
+    // Gson - https://github.com/google/gson
+    implementation 'com.google.code.gson:gson:2.10'
+
+    // Retrofit2 - https://square.github.io/retrofit/
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // ui androidx - to use delegate viewModels
+    implementation 'androidx.activity:activity-ktx:1.7.2'
+    implementation 'androidx.fragment:fragment-ktx:1.6.0'
+
+    // Hilt - https://developer.android.com/training/dependency-injection/hilt-android?hl=ko
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
 }

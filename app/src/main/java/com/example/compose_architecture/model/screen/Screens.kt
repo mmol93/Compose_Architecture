@@ -47,4 +47,6 @@ enum class ViewScreens {
 
 enum class ExampleScreens {
     SplitFlap,
+    LazyColumnWithPaging3,
+    Ktor,
 }

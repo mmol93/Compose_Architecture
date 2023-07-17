@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,10 +29,16 @@ import com.example.compose_architecture.model.screen.StartScreens
 import com.example.compose_architecture.model.screen.ViewScreens
 import com.example.compose_architecture.ui.screen.examples.ExampleScreen
 import com.example.compose_architecture.ui.screen.examples.ExampleScreen.ShowSplitFlapScreen
+import com.example.compose_architecture.ui.screen.examples.lazyColumn.LazyColumnViewModel
+import com.example.compose_architecture.ui.screen.examples.lazyColumn.ShowLazyColumnWidget
 import com.example.compose_architecture.ui.screen.views.ViewScreen
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val lazyColumnViewModel: LazyColumnViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -48,72 +55,76 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-@Composable
-fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostController) {
-    NavHost(navController = navHostController, startDestination = StartScreens.Main.name) {
-        composable(StartScreens.Main.name) {
-            ShowHomeScreen(navHostController = navHostController)
-        }
-        composable(MainScreens.View.name) {
-            ViewScreen.ShowViewScreen(mainActivityNavHostController = navHostController)
-        }
+    @Composable
+    fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostController) {
+        NavHost(navController = navHostController, startDestination = StartScreens.Main.name) {
+            composable(StartScreens.Main.name) {
+                ShowHomeScreen(navHostController = navHostController)
+            }
+            composable(MainScreens.View.name) {
+                ViewScreen.ShowViewScreen(mainActivityNavHostController = navHostController)
+            }
 
-        composable(MainScreens.Functions.name) {
+            composable(MainScreens.Functions.name) {
 
-        }
+            }
 
-        composable(MainScreens.Examples.name) {
-            ExampleScreen.ShowExampleScreen(mainActivityNavHostController = navHostController)
-        }
-        composable(ExampleScreens.SplitFlap.name) {
-            ExampleScreen.ShowSplitFlapScreen()
-        }
-        composable(MainScreens.Animations.name) {
+            composable(MainScreens.Examples.name) {
+                ExampleScreen.ShowExampleScreen(mainActivityNavHostController = navHostController)
+            }
+            composable(ExampleScreens.SplitFlap.name) {
+                ExampleScreen.ShowSplitFlapScreen()
+            }
+            composable(MainScreens.Animations.name) {
 
-        }
-        composable(ViewScreens.ImageView.name) {
-            ViewScreen.ShowImageView()
-        }
-        composable(ViewScreens.DrawerM2.name) {
-            ViewScreen.ShowDrawerM2()
-        }
-        composable(ViewScreens.DrawerM3.name) {
-            ViewScreen.ShowDrawerM3()
-        }
-        composable(ViewScreens.TopAppBar.name) {
-            ViewScreen.ShowTopAppBar(navHostController = navHostController)
-        }
-        composable(ViewScreens.Temp.name) {
-            ViewScreen.ShowTempScreen()
-        }
-        composable(ViewScreens.CollapsingTopAppBar.name) {
-            ViewScreen.ShowCollapsingTopAppBar()
-        }
-        composable(ViewScreens.TextView.name) {
-            ViewScreen.ShowTextViews(context = context)
-        }
-        composable(ViewScreens.BottomSheet.name) {
-            ViewScreen.ShowBottomSheetView()
-        }
-        composable(ViewScreens.Dialog.name) {
-            ViewScreen.ShowDialog()
-        }
+            }
+            composable(ViewScreens.ImageView.name) {
+                ViewScreen.ShowImageView()
+            }
+            composable(ViewScreens.DrawerM2.name) {
+                ViewScreen.ShowDrawerM2()
+            }
+            composable(ViewScreens.DrawerM3.name) {
+                ViewScreen.ShowDrawerM3()
+            }
+            composable(ViewScreens.TopAppBar.name) {
+                ViewScreen.ShowTopAppBar(navHostController = navHostController)
+            }
+            composable(ViewScreens.Temp.name) {
+                ViewScreen.ShowTempScreen()
+            }
+            composable(ViewScreens.CollapsingTopAppBar.name) {
+                ViewScreen.ShowCollapsingTopAppBar()
+            }
+            composable(ViewScreens.TextView.name) {
+                ViewScreen.ShowTextViews(context = context)
+            }
+            composable(ViewScreens.BottomSheet.name) {
+                ViewScreen.ShowBottomSheetView()
+            }
+            composable(ViewScreens.Dialog.name) {
+                ViewScreen.ShowDialog()
+            }
 
-        composable(ViewScreens.SnackBar.name) {
-            ViewScreen.ShowSnackBar()
-        }
+            composable(ViewScreens.SnackBar.name) {
+                ViewScreen.ShowSnackBar()
+            }
 
-        composable(ViewScreens.PullRefresh.name) {
-            ViewScreen.ShowPullRefresh()
-        }
+            composable(ViewScreens.PullRefresh.name) {
+                ViewScreen.ShowPullRefresh()
+            }
 
-        composable(ViewScreens.BottomNavigation.name) {
-            ViewScreen.ShowBottomNavigation()
-        }
-        composable(ViewScreens.Card.name) {
-            ViewScreen.ShowCard()
+            composable(ViewScreens.BottomNavigation.name) {
+                ViewScreen.ShowBottomNavigation()
+            }
+            composable(ViewScreens.Card.name) {
+                ViewScreen.ShowCard()
+            }
+
+            composable(ViewScreens.List.name) {
+                ViewScreen.ShowLazyColumnWidget(lazyColumnViewModel = lazyColumnViewModel)
+            }
         }
     }
 }
