@@ -32,6 +32,7 @@ import com.example.compose_architecture.ui.screen.examples.ExampleScreen.ShowSpl
 import com.example.compose_architecture.ui.screen.examples.lazyColumn.LazyColumnViewModel
 import com.example.compose_architecture.ui.screen.examples.lazyColumn.ShowLazyColumnWidget
 import com.example.compose_architecture.ui.screen.functions.FunctionScreen
+import com.example.compose_architecture.ui.screen.views.ShowWebWidget
 import com.example.compose_architecture.ui.screen.views.ViewScreen
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,6 +61,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun SetMainScreenWithNavigation(context: Context, navHostController: NavHostController) {
         NavHost(navController = navHostController, startDestination = StartScreens.Main.name) {
+            // ---- View -----
             composable(StartScreens.Main.name) {
                 ShowHomeScreen(navHostController = navHostController)
             }
@@ -111,9 +113,11 @@ class MainActivity : ComponentActivity() {
             composable(ViewScreens.Card.name) {
                 ViewScreen.ShowCard()
             }
-
             composable(ViewScreens.List.name) {
                 ViewScreen.ShowLazyColumnWidget(lazyColumnViewModel = lazyColumnViewModel)
+            }
+            composable(ViewScreens.WebView.name){
+                ViewScreen.ShowWebWidget(navHostController = navHostController)
             }
 
             // ---- Function -----

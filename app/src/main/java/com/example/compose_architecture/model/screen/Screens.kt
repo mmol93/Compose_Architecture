@@ -43,6 +43,7 @@ enum class ViewScreens {
     WebView,
     SearchBar,
     BottomAppBar,
+    ViewPager,
 }
 
 enum class FunctionScreens {
