@@ -31,6 +31,7 @@ import com.example.compose_architecture.ui.screen.examples.ExampleScreen
 import com.example.compose_architecture.ui.screen.examples.ExampleScreen.ShowSplitFlapScreen
 import com.example.compose_architecture.ui.screen.examples.lazyColumn.LazyColumnViewModel
 import com.example.compose_architecture.ui.screen.examples.lazyColumn.ShowLazyColumnWidget
+import com.example.compose_architecture.ui.screen.functions.FunctionScreen
 import com.example.compose_architecture.ui.screen.views.ViewScreen
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,17 +65,6 @@ class MainActivity : ComponentActivity() {
             }
             composable(MainScreens.View.name) {
                 ViewScreen.ShowViewScreen(mainActivityNavHostController = navHostController)
-            }
-
-            composable(MainScreens.Functions.name) {
-
-            }
-
-            composable(MainScreens.Examples.name) {
-                ExampleScreen.ShowExampleScreen(mainActivityNavHostController = navHostController)
-            }
-            composable(ExampleScreens.SplitFlap.name) {
-                ExampleScreen.ShowSplitFlapScreen()
             }
             composable(MainScreens.Animations.name) {
 
@@ -122,11 +112,23 @@ class MainActivity : ComponentActivity() {
                 ViewScreen.ShowCard()
             }
 
-            composable(ExampleScreens.LazyColumnWithPaging3.name) {
+            composable(ViewScreens.List.name) {
                 ViewScreen.ShowLazyColumnWidget(lazyColumnViewModel = lazyColumnViewModel)
             }
 
-            composable(ViewScreens.List.name) {
+            // ---- Function -----
+            composable(MainScreens.Functions.name) {
+                FunctionScreen.ShowFunctionScreen(mainActivityNavHostController = navHostController)
+            }
+
+            // ---- Example -----
+            composable(MainScreens.Examples.name) {
+                ExampleScreen.ShowExampleScreen(mainActivityNavHostController = navHostController)
+            }
+            composable(ExampleScreens.SplitFlap.name) {
+                ExampleScreen.ShowSplitFlapScreen()
+            }
+            composable(ExampleScreens.LazyColumnWithPaging3.name) {
                 ViewScreen.ShowLazyColumnWidget(lazyColumnViewModel = lazyColumnViewModel)
             }
         }

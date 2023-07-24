@@ -45,6 +45,10 @@ enum class ViewScreens {
     BottomAppBar,
 }
 
+enum class FunctionScreens {
+    Hilt,
+}
+
 enum class ExampleScreens {
     SplitFlap,
     LazyColumnWithPaging3,
