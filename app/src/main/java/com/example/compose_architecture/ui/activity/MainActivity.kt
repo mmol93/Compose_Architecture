@@ -122,6 +122,10 @@ class MainActivity : ComponentActivity() {
                 ViewScreen.ShowCard()
             }
 
+            composable(ExampleScreens.LazyColumnWithPaging3.name) {
+                ViewScreen.ShowLazyColumnWidget(lazyColumnViewModel = lazyColumnViewModel)
+            }
+
             composable(ViewScreens.List.name) {
                 ViewScreen.ShowLazyColumnWidget(lazyColumnViewModel = lazyColumnViewModel)
             }
