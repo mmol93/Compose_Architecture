@@ -1,4 +1,4 @@
-package com.example.compose_architecture.di
+package com.example.compose_architecture.ui.screen.examples.di
 
 import com.example.compose_architecture.ui.screen.examples.lazyColumn.PhotoApiService
 import com.example.compose_architecture.ui.screen.examples.lazyColumn.PhotoRepository
