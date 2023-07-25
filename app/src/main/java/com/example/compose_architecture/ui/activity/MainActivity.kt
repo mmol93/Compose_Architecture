@@ -32,6 +32,7 @@ import com.example.compose_architecture.ui.screen.examples.ExampleScreen.ShowSpl
 import com.example.compose_architecture.ui.screen.examples.lazyColumn.LazyColumnViewModel
 import com.example.compose_architecture.ui.screen.examples.lazyColumn.ShowLazyColumnWidget
 import com.example.compose_architecture.ui.screen.functions.FunctionScreen
+import com.example.compose_architecture.ui.screen.views.ShowSearchBarWidget
 import com.example.compose_architecture.ui.screen.views.ShowWebWidget
 import com.example.compose_architecture.ui.screen.views.ViewScreen
 import com.example.compose_architecture.ui.theme.Compose_ArchitectureTheme
@@ -102,11 +103,9 @@ class MainActivity : ComponentActivity() {
             composable(ViewScreens.SnackBar.name) {
                 ViewScreen.ShowSnackBar()
             }
-
             composable(ViewScreens.PullRefresh.name) {
                 ViewScreen.ShowPullRefresh()
             }
-
             composable(ViewScreens.BottomNavigation.name) {
                 ViewScreen.ShowBottomNavigation()
             }
@@ -116,8 +115,11 @@ class MainActivity : ComponentActivity() {
             composable(ViewScreens.List.name) {
                 ViewScreen.ShowLazyColumnWidget(lazyColumnViewModel = lazyColumnViewModel)
             }
-            composable(ViewScreens.WebView.name){
+            composable(ViewScreens.WebView.name) {
                 ViewScreen.ShowWebWidget(navHostController = navHostController)
+            }
+            composable(ViewScreens.SearchBar.name) {
+                ViewScreen.ShowSearchBarWidget()
             }
 
             // ---- Function -----
