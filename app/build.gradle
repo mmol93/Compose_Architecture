@@ -118,6 +118,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
 
+    // Timber - https://github.com/JakeWharton/timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
     // Compose에서 사용할 수 있는 추가 라이브러리 - https://github.com/google/accompanist
     // Compose에서 Web에 대한 추가 라이브러리 - https://github.com/google/accompanist/tree/main/web
     implementation "com.google.accompanist:accompanist-webview:0.30.1"
