@@ -65,6 +65,7 @@ class StartActivity : ComponentActivity() {
             }
         }
 
+        // Splash 화면의 상태에 따라 각기 다른 행동을 하게 한다.
         splashScreen.setKeepOnScreenCondition {
             when (uiState) {
                 UiState.Loading -> true
@@ -99,6 +100,7 @@ private fun ShowOnBoarding(
     titles: List<String>,
     images: List<String>,
 ) {
+    // viewPager 및 dot-indicator에서 사용될 pagerState 객
     val pagerState = rememberPagerState()
 
     Column(
@@ -113,7 +115,7 @@ private fun ShowOnBoarding(
             style = TextStyle(fontSize = 32.sp),
             text = "OnBoarding Test"
         )
-        // ViewPager (Experimental)
+
         HorizontalPager(pageCount = titles.size, state = pagerState) {
             AsyncImage(
                 model = images[it],
@@ -137,10 +139,15 @@ private fun ShowOnBoarding(
             pagerState = pagerState,
         )
         if (pagerState.currentPage == titles.size - 1) {
-            Button(modifier = Modifier.padding(12.dp), onClick = {
-                context.startActivity(Intent(context, MainActivity::class.java))
-                (context as Activity).finish()
-            }) {
+            Button(
+                modifier = Modifier.padding(12.dp),
+                onClick = {
+                    if ((context is ComponentActivity)) {
+                        context.startActivity(Intent(context, MainActivity::class.java))
+                        (context as Activity).finish()
+                    }
+                },
+            ) {
                 Text(text = "Next Page")
             }
         }

@@ -15,7 +15,8 @@
         <activity
             android:name=".ui.activity.StartActivity"
             android:exported="true"
-            android:theme="@style/Theme.StartScreen">
+            android:theme="@style/Theme.StartScreen"
+            android:launchMode="singleInstance">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,8 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="false"
-            android:theme="@style/Theme.Compose_Architecture">
+            android:theme="@style/Theme.Compose_Architecture"
+            android:launchMode="singleInstance">
 
         </activity>
 

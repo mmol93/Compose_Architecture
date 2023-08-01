@@ -122,6 +122,9 @@ class MainActivity : ComponentActivity() {
             composable(ViewScreens.BottomAppBar.name) {
                 ViewScreen.ShowBottomAppbarWidget()
             }
+            composable(ViewScreens.ViewPager.name) {
+                showPagerWidget()
+            }
 
             // ---- Function -----
             composable(MainScreens.Functions.name) {

@@ -79,7 +79,7 @@ dependencies {
     // Foundation (to use viewPager or other Functions) - https://developer.android.com/jetpack/androidx/releases/compose-foundation?hl=ko
     implementation "androidx.compose.foundation:foundation:1.4.3"
 
-    // accompanist-pager-indicators (for pager indicator) - https://github.com/google/accompanist
+    // accompanist-pager-dot-indicators (for pager indicator) - https://github.com/google/accompanist
     implementation "com.google.accompanist:accompanist-pager-indicators:0.30.1"
 
     // coil - https://github.com/coil-kt/coil
